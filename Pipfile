@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+python-telegram-bot = "==13.7"
+sqlalchemy = "*"
+croniter = "*"
+psycopg2-binary = "==2.8.6"
+
+[requires]
+python_version = "3.9"
+
+[scripts]
+bot = "python bot.py"
