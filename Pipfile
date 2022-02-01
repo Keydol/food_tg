@@ -8,6 +8,7 @@ python-telegram-bot = "==13.7"
 sqlalchemy = "*"
 croniter = "*"
 psycopg2-binary = "==2.8.6"
+pytz = "*"
 
 [requires]
 python_version = "3.9"
