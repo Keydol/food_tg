@@ -39,6 +39,10 @@ def remove_order(update: Update, context: CallbackContext):
     edit_order_message(update, context)
 
 
+def get_chat_id(update: Update, context: CallbackContext):
+    print(update._effective_chat.id)
+
+
 def time_to_eat(context: CallbackContext):
     now = datetime.datetime.now().astimezone(pytz.timezone("Europe/Kiev"))
     if datetime.datetime.strftime(now, "%H:%M") == settings.time_to_eat and now.weekday() not in [5, 6]:

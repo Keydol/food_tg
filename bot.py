@@ -1,5 +1,5 @@
 import settings
-from handlers import add_order, remove_order, time_to_eat
+from handlers import add_order, remove_order, time_to_eat, get_chat_id
 
 from telegram.ext import (
     CommandHandler,
@@ -16,6 +16,7 @@ def main():
 
     dispatcher = updater.dispatcher
     dispatcher.add_handler(MessageHandler(filters=(Filters.reply & Filters.text), callback=add_order))
+    dispatcher.add_handler(CommandHandler("chat_id", get_chat_id))
     dispatcher.add_handler(CommandHandler("cancel", remove_order))
 
     job_queue = updater.job_queue
