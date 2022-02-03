@@ -43,7 +43,7 @@ def get_chat_id(update: Update, context: CallbackContext):
 
 def time_to_eat(context: CallbackContext):
     now = datetime.datetime.now().astimezone(pytz.timezone("Europe/Kiev"))
-    if datetime.datetime.strftime(now, "%H:%M") == settings.time_to_eat and now.weekday() not in [5, 6]:
+    if datetime.datetime.strftime(now, "%H:%M") == settings.time_to_eat and now.weekday() not in [4, 5, 6]:
         message = context.bot.send_message(
             text=settings.first_message,
             chat_id=settings.chat_id,
@@ -53,7 +53,7 @@ def time_to_eat(context: CallbackContext):
         context.dispatcher.chat_data[settings.chat_id]["order"] = {}
         context.dispatcher.chat_data[settings.chat_id]["order_people"] = {}
 
-    if datetime.datetime.strftime(now, "%H:%M") == settings.time_to_order and now.weekday() not in [5, 6]:
+    if datetime.datetime.strftime(now, "%H:%M") == settings.time_to_order and now.weekday() not in [4, 5, 6]:
         order_peoples = context.dispatcher.chat_data[settings.chat_id]["order_people"]
         peoples = list(order_peoples.keys())
         user = peoples[random.randint(0, len(peoples) - 1)]
