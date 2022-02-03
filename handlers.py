@@ -27,12 +27,13 @@ def edit_order_message(update: Update, context: CallbackContext):
 
 def add_order(update: Update, context: CallbackContext):
     context.chat_data["order"][update.effective_user.id] = update.message.text
-    context.chat_data["order_people"].append(update.effective_user.first_name)
+    context.chat_data["order_people"][update.effective_user.id] = update.effective_user.first_name
     edit_order_message(update, context)
 
 
 def remove_order(update: Update, context: CallbackContext):
     del context.chat_data["order"][update.effective_user.id]
+    del context.chat_data["order_people"][update.effective_user.id]
     edit_order_message(update, context)
 
 
@@ -50,11 +51,14 @@ def time_to_eat(context: CallbackContext):
         context.dispatcher.chat_data[settings.chat_id].clear()
         context.dispatcher.chat_data[settings.chat_id]["message_id"] = message.message_id
         context.dispatcher.chat_data[settings.chat_id]["order"] = {}
-        context.dispatcher.chat_data[settings.chat_id]["order_people"] = []
+        context.dispatcher.chat_data[settings.chat_id]["order_people"] = {}
 
     if datetime.datetime.strftime(now, "%H:%M") == settings.time_to_order and now.weekday() not in [5, 6]:
-        user = context.dispatcher.chat_data[settings.chat_id]["order_people"][random.randint(0, len(context.dispatcher.chat_data[settings.chat_id]["order_people"]) - 1)]
+        order_peoples = context.dispatcher.chat_data[settings.chat_id]["order_people"]
+        peoples = list(order_peoples.keys())
+        user = peoples[random.randint(0, len(peoples) - 1)]
         message = context.bot.send_message(
-            text=f"Сьогодні замовляє {user}",
+            text=f"Сьогодні замовляє [{order_peoples[user]}](tg://user?id={user})",
             chat_id=settings.chat_id,
+            parse_mode="Markdown"
         )
