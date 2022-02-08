@@ -62,3 +62,4 @@ def time_to_eat(context: CallbackContext):
             chat_id=settings.chat_id,
             parse_mode="Markdown"
         )
+
